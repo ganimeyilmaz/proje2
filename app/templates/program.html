@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}{{ program.name }}{% endblock %}
+{% block content %}
+<p class="crumb"><a href="/">Dashboard</a> / {{ program.university.name }}</p>
+<h1>{{ program.name }}</h1>
+<p class="muted">{{ program.university.name }} · {{ program.language }} · kaynak: {{ curriculum.source_url if curriculum else "yok" }}</p>
+
+{% if program.bologna_url or program.official_url %}
+<form method="post" action="/programs/{{ program.id }}/crawl">
+  <button type="submit">Kamuya açık sayfayı yeniden çek</button>
+</form>
+{% endif %}
+
+{% if curriculum %}
+<section class="cards">
+  <article><strong>{{ curriculum.quality_score }}</strong><span>Kalite skoru</span></article>
+  <article><strong>{{ courses|length }}</strong><span>Ders</span></article>
+  <article><strong>{{ curriculum.academic_year or "—" }}</strong><span>Müfredat yılı</span></article>
+</section>
+
+<h2>Uyarılar</h2>
+{% if issues %}
+<ul>
+  {% for i in issues %}
+  <li><span class="tag {{ i.severity }}">{{ i.severity }}</span> {{ i.issue_code }} — {{ i.description }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Kritik uyarı yok.</p>
+{% endif %}
+
+<div class="grid-2">
+  <div>
+    <h2>CS2023 alanları</h2>
+    <ul>
+      {% for k,v in area_counts.items() %}
+      <li>{{ k }}: {{ v }} ders</li>
+      {% else %}
+      <li>Eşleme yok / düşük güven</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h2>Bloom dağılımı</h2>
+    <ul>
+      {% for k,v in bloom_counts.items() %}
+      <li>{{ k }}: {{ v }}</li>
+      {% else %}
+      <li>Çıktı yok</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<h2>Dersler</h2>
+<table>
+  <thead>
+    <tr><th>Dönem</th><th>Kod</th><th>Ad</th><th>Tür</th><th>AKTS</th><th>LO</th><th>Alan</th></tr>
+  </thead>
+  <tbody>
+    {% for c in courses %}
+    <tr>
+      <td>{{ c.semester.semester_no }}</td>
+      <td>{{ c.code }}</td>
+      <td>{{ c.name_tr or c.name_en }}</td>
+      <td>{{ c.course_type }}</td>
+      <td>{{ c.ects }}</td>
+      <td>{{ c.outcomes|length }}</td>
+      <td>{{ c.topic_area or "—" }} {% if c.topic_confidence %}({{ c.topic_confidence }}){% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>Bu program için henüz müfredat çekilmedi. Kamuya açık URL ekleyin veya demo verisini kullanın.</p>
+{% endif %}
+{% endblock %}

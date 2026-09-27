@@ -1,0 +1,65 @@
+:root {
+  --bg: #0f1419;
+  --card: #1a222c;
+  --text: #e8eef4;
+  --muted: #9aa8b5;
+  --accent: #3d9cf0;
+  --line: #2a3542;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--line);
+  background: #12181f;
+}
+.brand { color: var(--text); text-decoration: none; font-weight: 700; }
+nav a { color: var(--muted); margin-left: 1rem; text-decoration: none; }
+nav a:hover { color: var(--accent); }
+main { padding: 1.5rem; max-width: 1200px; margin: 0 auto; }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+.cards article {
+  background: var(--card);
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+.cards strong { display: block; font-size: 1.6rem; }
+.cards span, .muted { color: var(--muted); font-size: 0.9rem; }
+table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+th, td { text-align: left; padding: 0.5rem 0.4rem; border-bottom: 1px solid var(--line); }
+.grid-2, .grid-3 { display: grid; gap: 1.5rem; margin-top: 1rem; }
+.grid-2 { grid-template-columns: 2fr 1fr; }
+.grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.stack { display: flex; flex-direction: column; gap: 0.6rem; }
+input, select, button {
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #10161c;
+  color: var(--text);
+}
+button { background: var(--accent); color: #061018; font-weight: 600; cursor: pointer; }
+.tag { font-size: 0.75rem; padding: 0.1rem 0.4rem; border-radius: 4px; }
+.tag.critical { background: #7a2430; }
+.tag.high { background: #7a5a20; }
+.tag.medium { background: #2a4a6a; }
+.inline { display: flex; gap: 1rem; align-items: end; flex-wrap: wrap; }
+.url { max-width: 360px; overflow: hidden; text-overflow: ellipsis; }
+a { color: var(--accent); }
+@media (max-width: 800px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Kaynak izi{% endblock %}
+{% block content %}
+<h1>Kaynak ve hata kaydı</h1>
+<table>
+  <thead>
+    <tr><th>Zaman</th><th>HTTP</th><th>Parser</th><th>robots</th><th>URL</th><th>Hata</th></tr>
+  </thead>
+  <tbody>
+    {% for s in snaps %}
+    <tr>
+      <td>{{ s.fetch_date }}</td>
+      <td>{{ s.status_code }}</td>
+      <td>{{ s.parser_name }}</td>
+      <td>{{ s.robots_allowed }}</td>
+      <td class="url"><a href="{{ s.url }}">{{ s.url }}</a></td>
+      <td>{{ s.error_message or "" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

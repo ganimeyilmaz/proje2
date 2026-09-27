@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Genel kapsam</h1>
+<p class="muted">Tüm programlara 8 dönemlik katalog müfredatı yüklendi (ders, AKTS, içerik, öğrenme çıktısı). Canlı üniversite sayfası için URL ekleyip çekebilirsiniz.</p>
+<section class="cards">
+  <article><strong>{{ stats.universities }}</strong><span>Üniversite</span></article>
+  <article><strong>{{ stats.programs }}</strong><span>Program</span></article>
+  <article><strong>{{ stats.accessed }}</strong><span>Müfredatı alınan</span></article>
+  <article><strong>{{ stats.failed }}</strong><span>Hatalı fetch</span></article>
+  <article><strong>{{ stats.courses }}</strong><span>Ders</span></article>
+  <article><strong>{{ stats.lo_courses }}</strong><span>LO bulunan ders</span></article>
+</section>
+
+<section class="grid-2">
+  <div>
+    <h2>Program envanteri</h2>
+    <table>
+      <thead>
+        <tr><th>Üniversite</th><th>Program</th><th>Dil</th><th>Ders</th><th>LO</th><th>Kalite</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td>{{ row.program.university.name }}</td>
+          <td>{{ row.program.name }}</td>
+          <td>{{ row.program.language }}</td>
+          <td>{{ row.course_count }}</td>
+          <td>{{ row.lo_count }}</td>
+          <td>{{ row.quality if row.quality is not none else "—" }}</td>
+          <td><a href="/programs/{{ row.program.id }}">kart</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <h2>CS2023 ders dağılımı</h2>
+    <ul>
+      {% for k,v in area_totals.items() %}
+      <li>{{ k }}: {{ v }}</li>
+      {% else %}
+      <li>Henüz alan etiketi yok</li>
+      {% endfor %}
+    </ul>
+    <h2>Kaynak ekle</h2>
+    <p class="muted">Yalnızca kimlik doğrulamasız, kamuya açık Bologna/ders planı URL’si.</p>
+    <form method="post" action="/programs" class="stack">
+      <label>Üniversite <input name="university_name" required></label>
+      <label>Program <input name="program_name" required placeholder="Bilgisayar Mühendisliği"></label>
+      <label>Bologna / ders planı URL <input name="bologna_url" type="url"></label>
+      <button type="submit">Envantere ekle</button>
+    </form>
+    <form method="post" action="/reload-demo" class="stack" style="margin-top:1rem">
+      <button type="submit">Katalog verisini yeniden yükle</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

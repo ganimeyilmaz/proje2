@@ -1,0 +1,11 @@
+university_name,university_type,city,official_url,adapter,program_name,language,faculty,program_url,bologna_url
+Örnek Üniversitesi A,devlet,Ankara,https://example.edu.tr,generic_html,Bilgisayar Mühendisliği,tr,Mühendislik Fakültesi,,
+Örnek Üniversitesi B,vakıf,İstanbul,https://example-b.edu.tr,bologna_like,Yazılım Mühendisliği,tr,Mühendislik Fakültesi,,
+Orta Doğu Teknik Üniversitesi,devlet,Ankara,https://www.metu.edu.tr,generic_html,Bilgisayar Mühendisliği,en,Mühendislik Fakültesi,https://ceng.metu.edu.tr/,
+İstanbul Teknik Üniversitesi,devlet,İstanbul,https://www.itu.edu.tr,generic_html,Bilgisayar Mühendisliği,tr,Bilgisayar ve Bilişim Fakültesi,https://www.itu.edu.tr/,
+Boğaziçi Üniversitesi,devlet,İstanbul,https://www.boun.edu.tr,generic_html,Bilgisayar Mühendisliği,en,Mühendislik Fakültesi,https://www.cmpe.boun.edu.tr/,
+Hacettepe Üniversitesi,devlet,Ankara,https://www.hacettepe.edu.tr,bologna_like,Bilgisayar Mühendisliği,tr,Mühendislik Fakültesi,,
+Yıldız Teknik Üniversitesi,devlet,İstanbul,https://www.yildiz.edu.tr,bologna_like,Bilgisayar Mühendisliği,tr,Elektrik-Elektronik Fakültesi,,
+Ege Üniversitesi,devlet,İzmir,https://www.ege.edu.tr,bologna_like,Bilgisayar Mühendisliği,tr,Mühendislik Fakültesi,,
+Dokuz Eylül Üniversitesi,devlet,İzmir,https://www.deu.edu.tr,bologna_like,Yazılım Mühendisliği,tr,Bilgisayar ve Bilişim Bilimleri,,
+Bahçeşehir Üniversitesi,vakıf,İstanbul,https://www.bau.edu.tr,generic_html,Yazılım Mühendisliği,en,Mühendislik ve Doğa Bilimleri,,

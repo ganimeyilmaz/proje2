@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Karşılaştır{% endblock %}
+{% block content %}
+<h1>İki program karşılaştır</h1>
+<form class="inline" method="get" action="/compare">
+  <label>A
+    <select name="a">
+      {% for p in programs %}
+      <option value="{{ p.id }}" {% if a == p.id %}selected{% endif %}>{{ p.university.name }} — {{ p.name }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>B
+    <select name="b">
+      {% for p in programs %}
+      <option value="{{ p.id }}" {% if b == p.id %}selected{% endif %}>{{ p.university.name }} — {{ p.name }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <button type="submit">Karşılaştır</button>
+</form>
+
+{% if result %}
+  {% if result.error %}
+    <p>{{ result.error }}</p>
+  {% else %}
+    <section class="cards">
+      <article><strong>{{ "%.2f"|format(result.jaccard) }}</strong><span>Jaccard (normalize ad)</span></article>
+      <article><strong>{{ "%.2f"|format(result.tfidf_cosine) }}</strong><span>TF-IDF cosine</span></article>
+      <article><strong>{{ result.ects_a }} / {{ result.ects_b }}</strong><span>AKTS A / B</span></article>
+      <article><strong>{{ result.lo_a }} / {{ result.lo_b }}</strong><span>LO A / B</span></article>
+    </section>
+    <div class="grid-3">
+      <div><h2>Ortak</h2><ul>{% for x in result.shared %}<li>{{ x }}</li>{% endfor %}</ul></div>
+      <div><h2>Yalnız A</h2><ul>{% for x in result.only_a %}<li>{{ x }}</li>{% endfor %}</ul></div>
+      <div><h2>Yalnız B</h2><ul>{% for x in result.only_b %}<li>{{ x }}</li>{% endfor %}</ul></div>
+    </div>
+  {% endif %}
+{% endif %}
+{% endblock %}
